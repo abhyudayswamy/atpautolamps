@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "ATP Auto Lamps"
+description = "A premium, responsive company website for ATP Auto Lamps, an Indian automotive lighting and electrical parts brand serving commercial vehicles and aftermarket partners."
+version = "1.0.0"
+id = "artifacts/atp-auto-lamps"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18421
+
+[services.development]
+run = "pnpm --filter @workspace/atp-auto-lamps run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/atp-auto-lamps", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/atp-auto-lamps/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18421"
+BASE_PATH = "/"
